@@ -351,6 +351,8 @@ public class Consulta extends javax.swing.JFrame {
             System.out.println("Error al visualizar los datos: "+e.getMessage());
         }
         
+        
+        
         /*----------------------------------------------------------------------------------------------------*/
         
 
@@ -451,6 +453,19 @@ public class Consulta extends javax.swing.JFrame {
             PS.setString(2, txtPedido.getText());
             int RES = PS.executeUpdate();
             
+            
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error al visualizar los datos: "+e.getMessage());
+        }
+        
+        try {
+            con = getConection();
+            
+            PS = con.prepareStatement("UPDATE deuda SET Status = ? WHERE CodigoBusqueda = ?");
+            PS.setString(1, "Validando");
+            PS.setString(2, txtPedido.getText());
+            int RES = PS.executeUpdate();
             
             con.close();
         } catch (SQLException e) {
