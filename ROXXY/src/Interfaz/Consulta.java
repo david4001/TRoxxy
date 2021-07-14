@@ -562,7 +562,8 @@ public class Consulta extends javax.swing.JFrame {
     txtDoc.setText(null);
     txtNom.setText(null);
     txtPedido.setText(null);
-    txtTotal.setText("0.00");    
+    txtTotal.setText("0.00");
+    txtMora.setText("0.00");
     ImpAde.setText(null);
     ImpMin.setText(null);
     
