@@ -404,6 +404,7 @@ public class Consulta extends javax.swing.JFrame {
             double mora = 0.00;
             for(int i=0;i<totalRow;i++)
             {
+                 
                  suma= suma+Double.parseDouble(String.valueOf(TablaDeuda.getValueAt(i,3)));
                  Fecha1 = LocalDate.parse(valueOf(TablaDeuda.getValueAt(i,2)));
                  Fecha2 = LocalDate.now();
@@ -413,11 +414,12 @@ public class Consulta extends javax.swing.JFrame {
                  double Div = mult / 30;
                  mora = Div * days;
                  }
-                 
-                total = suma + importAude + mora;
+
+            }   
+            total = suma + importAude + mora;
+                
                 txtMora.setText("" + mora);
                 txtTotal.setText(""+ total);
-            }
 /*End of column sum to total*/
             
             RS.close();
