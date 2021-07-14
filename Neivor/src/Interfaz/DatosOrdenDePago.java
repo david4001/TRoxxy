@@ -299,7 +299,6 @@ public class DatosOrdenDePago extends javax.swing.JFrame {
         /*Text field validation for Payer Name*/
         RestrictedTextField a = new RestrictedTextField(txtNom);
         a.setLimit(40);
-        a.setOnlyText(true);
 
         /*Text field validation for Payer's Document*/
         RestrictedTextField b = new RestrictedTextField(txtDoc);
@@ -318,7 +317,6 @@ public class DatosOrdenDePago extends javax.swing.JFrame {
         /*Validation of text field for the number of payments of the payer*/
         RestrictedTextField e = new RestrictedTextField(txtCuotas);
         e.setLimit(2);
-        e.setOnlyNums(true);
 
     }
 
@@ -544,13 +542,12 @@ public class DatosOrdenDePago extends javax.swing.JFrame {
                 }
                 if (opcion.equals("Pago a Cuotas")) {
                     PS.setString(11, "0.00");
-                }
+                }   
                 PS.setString(12, "0.00");
 
                 int RS = PS.executeUpdate();
 
                 con.close();
-                LimpiarCajas();
             } catch (SQLException e) {
                 System.out.println("Error al visualizar los datos: " + e.getMessage());
             }
@@ -594,20 +591,19 @@ public class DatosOrdenDePago extends javax.swing.JFrame {
 
                 try {
                     con = getConection();
-                    int i;
+                    int e;
                     //Get the current date
                     LocalDate fecha = LocalDate.now();
                     
-
-                    for (i = 0; i < Cuota; i++) {
+                    for (e = 0; e < Cuota; e++) {
                         // Get the current month
-                        Month mes = (LocalDate.now().plusMonths(i + 1).getMonth());
+                        Month mes = (LocalDate.now().plusMonths(e + 1).getMonth());
                         // Get the name of the month
                         String nombre = mes.getDisplayName(TextStyle.FULL, new Locale("es", "ES"));
                         PS = con.prepareStatement("INSERT INTO cuota (NumCuota, DetalleCuota, FechaVenc, ImporteCuo, ImporteCom, CodigoBus, CodServicio, Status, DocCondominio) VALUES (?,?,?,?,?,?,?,?,?)");
-                        PS.setInt(1, i);
+                        PS.setInt(1, e);
                         PS.setString(2, "Cuota del mes de " + nombre);
-                        PS.setDate(3, Date.valueOf(fecha.plusMonths(i + 1)));
+                        PS.setDate(3, Date.valueOf(fecha.plusMonths(e + 1)));
                         PS.setFloat(4, ValorCuotas);
                         PS.setString(5, "0.00");
                         PS.setString(6, CodigoBus);
