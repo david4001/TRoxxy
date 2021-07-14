@@ -290,8 +290,8 @@ public class Consulta extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 500, -1, 30));
 
         jLabel7.setText("Lugar De Pago:");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, 20));
-        getContentPane().add(txtLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 470, 120, 20));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, 30));
+        getContentPane().add(txtLugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 470, 120, 30));
 
         jLabel9.setText("Interes por mora:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 470, -1, 20));
@@ -331,7 +331,7 @@ public class Consulta extends javax.swing.JFrame {
         try {
             con = getConection();
             
-            PS = con.prepareStatement("SELECT * FROM ordenpago WHERE CodigoBusqueda = ?");
+            PS = con.prepareStatement("SELECT * FROM ordenpago WHERE CodigoBusqueda = ? and Status = 'Pendiente'");
             PS.setString(1, txtPedido.getText());
             RS = PS.executeQuery();
             
@@ -442,7 +442,21 @@ public class Consulta extends javax.swing.JFrame {
  */
     private void BtnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPagarActionPerformed
         Connection con = null;
-        
+        /*Start of updating data regarding pay order*/
+        try {
+            con = getConection();
+            
+            PS = con.prepareStatement("UPDATE ordenpago SET Status = ? WHERE CodigoBusqueda = ?");
+            PS.setString(1, "Validando");
+            PS.setString(2, txtPedido.getText());
+            int RES = PS.executeUpdate();
+            
+            
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("Error al visualizar los datos: "+e.getMessage());
+        }
+            /*End of data update regarding pay order*/
          /*Start of updating data regarding quotas*/
         try {
             con = getConection();
@@ -464,6 +478,7 @@ public class Consulta extends javax.swing.JFrame {
         } catch (SQLException e) {
             System.out.println("Error al visualizar los datos: "+e.getMessage());
         }
+        
         /*End of data update regarding quotas*/
         
          /*Start of data update regarding payment details*/
