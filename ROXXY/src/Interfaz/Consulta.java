@@ -462,7 +462,7 @@ public class Consulta extends javax.swing.JFrame {
         try {
             con = getConection();
             
-            PS = con.prepareStatement("UPDATE deuda SET Status = ? WHERE CodigoBusqueda = ?");
+            PS = con.prepareStatement("UPDATE deuda SET Status = ? WHERE CodigoBus = ?");
             PS.setString(1, "Validando");
             PS.setString(2, txtPedido.getText());
             int RES = PS.executeUpdate();
